@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleLocalSettings">
-    <option name="modificationStamps">
-      <map>
-        <entry key="$PROJECT_DIR$/../New folder (2)/ProjectExample" value="2857176287362" />
-        <entry key="$PROJECT_DIR$/../New folder/ProjectExample" value="2857176287362" />
-      </map>
-    </option>
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
