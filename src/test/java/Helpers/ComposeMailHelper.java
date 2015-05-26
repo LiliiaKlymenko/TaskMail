@@ -20,10 +20,23 @@ public class ComposeMailHelper {
         return this;
     }
 
-    public ComposeMailHelper assertSuccessSaved(String recipient, WebDriver driver){
-        drafts.AssertMailIsExcited(recipient,driver);
+    public ComposeMailHelper assertSuccessSaved(String recipient, String draftsFolder, WebDriver driver){
+        driver.navigate().to(draftsFolder);
+        drafts.AssertMailIsExcited(recipient, driver);
         return this;
     }
 
+    public ComposeMailHelper assertMailRequisites(String subject, String mailText, String draftsFolder, WebDriver driver){
+        driver.navigate().to(draftsFolder);
+        drafts.
+                openDraftMail().
+                AssertMailRequisites(subject, mailText, driver);
+        return this;
+    }
+
+    public ComposeMailHelper sendMail(){
+        drafts.sendMail().openSentMail();
+        return null;
+    }
 
 }
