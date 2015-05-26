@@ -18,11 +18,7 @@ public class MailBoxPage extends Page {
 
 
     ResourceBundle resource = ResourceBundle.getBundle("config");
-    String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
-    String LINK_CREATE_NEW_MAIL = resource.getString("LINK_CREATE_NEW_MAIL");
-
-
-    private By linkCreateNewMail = new By.ByXPath(LINK_CREATE_NEW_MAIL);
+;
 
 
     public static MailBoxPage getMailBoxPage() {
@@ -31,8 +27,8 @@ public class MailBoxPage extends Page {
         return mailBoxPage;
     }
 
-    public MailBoxPage AssertUserName(String displayedUserName, WebDriver driver) {
-        String actualUserName = driver.findElement(By.xpath(LINK_USER_NAME)).getText();
+    public MailBoxPage AssertUserName(String link_user_name, String displayedUserName, WebDriver driver) {
+        String actualUserName = driver.findElement(By.xpath(link_user_name)).getText();
         if (actualUserName.equals(displayedUserName)){
             return getMailBoxPage();
         } else
@@ -41,7 +37,7 @@ public class MailBoxPage extends Page {
         return getMailBoxPage();
     }
 
-    public MailBoxPage startCreatingNewMail(){
+    public MailBoxPage startCreatingNewMail(By linkCreateNewMail){
         action.buttonClick(linkCreateNewMail);
         return getMailBoxPage();
     }

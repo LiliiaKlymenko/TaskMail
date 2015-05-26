@@ -27,8 +27,8 @@ public class LoginHelper {
         return this;
     }
 
-    public LoginHelper assertSuccessSignIn(String userName, WebDriver driver) {
-        mailBoxPage.AssertUserName(userName, driver);
+    public LoginHelper assertSuccessSignIn(String link_user_name, String displayedUserName, WebDriver driver) {
+        mailBoxPage.AssertUserName(link_user_name,displayedUserName, driver);
         return  this;
     }
 }

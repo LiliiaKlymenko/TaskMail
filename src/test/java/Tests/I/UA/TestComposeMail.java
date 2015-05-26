@@ -4,8 +4,10 @@ import Helpers.ComposeMailHelper;
 import PageFactory.MailBoxPage;
 import PageFactory.SentMailPage;
 import WebDriverFactory.WebDriverFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -26,7 +28,23 @@ public class TestComposeMail {
     String MAIL_TEXT = resource.getString("MAIL_TEXT");
     String DRAFTS = resource.getString("DRAFTS");
 
-   private static MailBoxPage mailBoxPage;
+    String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
+    String LINK_CREATE_NEW_MAIL = resource.getString("LINK_CREATE_NEW_MAIL");
+    String RECIPIENT_TEXT_FIELD = resource.getString("RECIPIENT_TEXT_FIELD");
+    String SUBJECT_TEXT_FIELD = resource.getString("SUBJECT_TEXT_FIELD");
+    String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD");
+    String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS");
+
+
+    private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
+    private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
+    private By mailTextField = new By.ByXPath(MAIL_TEXT_FIELD);
+    private By buttonSaveInDrafts = new By.ByXPath(BUTTON_SAVE_IN_DRAFTS);
+
+
+    private By linkCreateNewMail = new By.ByXPath(LINK_CREATE_NEW_MAIL);
+
+    private static MailBoxPage mailBoxPage;
     private static SentMailPage sentMailPage;
 
 
@@ -38,22 +56,22 @@ public class TestComposeMail {
         sentMailPage = new SentMailPage();
     }
 
-    @Test(groups = { "MailBox" }, dependsOnGroups = { "SignIn" }, priority = 10)
+    @Test(groups = {"MailBox"}, dependsOnGroups = {"SignIn"}, priority = 10)
     public void testStartCreatingNewMail() throws Exception {
-        mailBoxPage.startCreatingNewMail();
+        mailBoxPage.startCreatingNewMail(linkCreateNewMail);
 
     }
 
-    @Test(groups = { "ComposeMail", "CreateDraft" }, dependsOnGroups = { "MailBox" })
+    @Test(groups = {"ComposeMail", "CreateDraft"}, dependsOnGroups = {"MailBox"}, priority = 8)
     public void mailCreate() {
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
         composeMailHelper.
-                composeMail(RECIPIENT,SUBJECT, MAIL_TEXT).
+                composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT).
                 assertSuccessSaved(RECIPIENT, DRAFTS, driver).
                 assertMailRequisites(SUBJECT, MAIL_TEXT, DRAFTS, driver);
     }
 
-    @Test(groups = { "SendMail" }, dependsOnGroups = { "MailBox" }, priority = 5)
+    @Test(groups = {"SendMail"}, dependsOnGroups = {"CreateDraft"}, priority = 5)
     public void mailSend() {
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
         composeMailHelper.sendMail();
@@ -61,6 +79,9 @@ public class TestComposeMail {
     }
 
 
-
+    @AfterClass
+    public void stopWebDriver() {
+        driver.quit();
+    }
 
 }

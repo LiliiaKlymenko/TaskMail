@@ -3,6 +3,7 @@ package Helpers;
 import PageFactory.ComposeMailPage;
 import PageFactory.Drafts;
 import PageFactory.Page;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -14,9 +15,9 @@ public class ComposeMailHelper {
     Drafts drafts = new Drafts();
 
 
-    public ComposeMailHelper composeMail(String recipient, String subject, String mailText){
+    public ComposeMailHelper composeMail(By buttonSaveInDrafts, By mailTextField, By subjectTextField, By recipientTextField, String recipient, String subject, String mailText){
         Page.InitPage(composeMailPage);
-        composeMailPage.fillRecipient(recipient).fillSubject(subject).fillMailText(mailText).saveAsDraft();
+        composeMailPage.fillRecipient(recipientTextField, recipient).fillSubject(subjectTextField, subject).fillMailText(mailTextField, mailText).saveAsDraft(buttonSaveInDrafts);
         return this;
     }
 
