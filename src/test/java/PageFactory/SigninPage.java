@@ -3,19 +3,22 @@ package PageFactory;
 import WebDriverFactory.BrowserAction;
 import org.openqa.selenium.By;
 
+import java.util.ResourceBundle;
+
 /**
  * Created by Lili on 24.05.2015.
  */
 public class SigninPage extends  Page {
 
-    private static final String USER_NAME_TEXT_FIELD = "login";
-    private static final String PASS_TEXT_FIELD = "pass";
-    private static final String LOGIN_BUTTON  = "css=p > input[type=\'submit\\']";
 
+    ResourceBundle resource = ResourceBundle.getBundle("config");
+    String USER_NAME_TEXT_FIELD = resource.getString("USER_NAME_TEXT_FIELD");
+    String PASS_TEXT_FIELD = resource.getString("PASS_TEXT_FIELD");
+    String LOGIN_BUTTON = resource.getString("LOGIN_BUTTON");
 
-    private By usernameTextBox = By.name(USER_NAME_TEXT_FIELD);
-    private By passwordTextBox = By.name(PASS_TEXT_FIELD);
-    private By loginButton = By.xpath(LOGIN_BUTTON);
+    private By usernameTextBox = new By.ByXPath(USER_NAME_TEXT_FIELD);
+    private By passwordTextBox = new By.ByXPath(PASS_TEXT_FIELD);
+    private By loginButton = new By.ByXPath(LOGIN_BUTTON);
     private BrowserAction action = new BrowserAction();
 
 
