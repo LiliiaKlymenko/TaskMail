@@ -31,10 +31,23 @@ public class TestComposeMail {
     String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
     String LINK_CREATE_NEW_MAIL = resource.getString("LINK_CREATE_NEW_MAIL");
     String RECIPIENT_TEXT_FIELD = resource.getString("RECIPIENT_TEXT_FIELD");
+    String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS");
+    String LAST_MAIL_RECIPIENT = resource.getString("LAST_MAIL_RECIPIENT");
     String SUBJECT_TEXT_FIELD = resource.getString("SUBJECT_TEXT_FIELD");
     String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD");
-    String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS");
+    String BUTTON_SEND = resource.getString("BUTTON_SEND");
+    String LINK_SENT_MAIL = resource.getString("LINK_SENT_MAIL");
 
+    String BUTTON_SETTINGS = resource.getString("BUTTON_SETTINGS");
+    String BUTTON_EXIT = resource.getString("BUTTON_EXIT");
+
+
+    private By buttonSettings = new By.ByXPath(BUTTON_SETTINGS);
+    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
+
+    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
+    private By buttonSend = new By.ByXPath(BUTTON_SEND);
+    private By linkSentMail = new By.ByXPath(LINK_SENT_MAIL);
 
     private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
     private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
@@ -67,15 +80,15 @@ public class TestComposeMail {
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
         composeMailHelper.
                 composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT).
-                assertSuccessSaved(RECIPIENT, DRAFTS, driver).
-                assertMailRequisites(SUBJECT, MAIL_TEXT, DRAFTS, driver);
+                assertSuccessSaved(RECIPIENT, DRAFTS, driver, lastMailRecipient).
+                assertMailRequisites(MAIL_TEXT, DRAFTS, driver,lastMailRecipient, subjectTextField, mailTextField);
     }
 
     @Test(groups = {"SendMail"}, dependsOnGroups = {"CreateDraft"}, priority = 5)
     public void mailSend() {
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
-        composeMailHelper.sendMail();
-        sentMailPage.AssertMailIsExcited(RECIPIENT, driver).exit();
+        composeMailHelper.sendMail(buttonSend, linkSentMail);
+        sentMailPage.AssertMailIsExcited(RECIPIENT, driver, lastMailRecipient).exit(buttonSettings, buttonExit);
     }
 
 

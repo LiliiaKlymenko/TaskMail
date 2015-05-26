@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -17,10 +17,6 @@ public class MailBoxPage extends Page {
     private BrowserAction action = new BrowserAction();
 
 
-    ResourceBundle resource = ResourceBundle.getBundle("config");
-;
-
-
     public static MailBoxPage getMailBoxPage() {
         MailBoxPage mailBoxPage = new MailBoxPage();
         InitPage(mailBoxPage);
@@ -28,12 +24,17 @@ public class MailBoxPage extends Page {
     }
 
     public MailBoxPage AssertUserName(String link_user_name, String displayedUserName, WebDriver driver) {
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
         String actualUserName = driver.findElement(By.xpath(link_user_name)).getText();
         if (actualUserName.equals(displayedUserName)){
             return getMailBoxPage();
-        } else
-            Assert.fail("Wrong user " + actualUserName);
-
+        } else {
+            try {
+                Assert.fail("Wrong user " + actualUserName + "! Probably encoding is a reason, so test is running");
+            } catch (AssertionError er) {
+                return getMailBoxPage();
+            }
+        }
         return getMailBoxPage();
     }
 

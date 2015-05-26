@@ -14,14 +14,7 @@ public class SentMailPage extends Page {
 
     private BrowserAction action = new BrowserAction();
     ResourceBundle resource = ResourceBundle.getBundle("config");
-    String BUTTON_SETTINGS = resource.getString("BUTTON_SETTINGS");
-    String BUTTON_EXIT = resource.getString("BUTTON_EXIT");
-    String LAST_MAIL_RECIPIENT = resource.getString("LAST_MAIL_RECIPIENT");
 
-
-    private By buttonSettings = new By.ByXPath(BUTTON_SETTINGS);
-    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
-    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
 
 
     public static SentMailPage getSentMailPage() {
@@ -30,7 +23,7 @@ public class SentMailPage extends Page {
         return sentMailPage;
     }
 
-    public SentMailPage AssertMailIsExcited(String recipient, WebDriver driver) {
+    public SentMailPage AssertMailIsExcited(String recipient, WebDriver driver, By lastMailRecipient) {
         String actualLastMailRecipient = driver.findElement(lastMailRecipient).getText();
         if (actualLastMailRecipient.equals(recipient)) {
             return getSentMailPage();
@@ -39,7 +32,7 @@ public class SentMailPage extends Page {
         return getSentMailPage();
     }
 
-    public void exit() {
+    public void exit(By buttonSettings, By buttonExit) {
         action.buttonClick(buttonSettings);
         action.buttonClick(buttonExit);
     }

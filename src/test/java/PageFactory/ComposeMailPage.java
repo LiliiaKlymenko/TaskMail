@@ -2,6 +2,9 @@ package PageFactory;
 
 import WebDriverFactory.BrowserAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 /**
  * Created by Liliia_Klymenko on 25-May-15.
@@ -17,17 +20,17 @@ public class ComposeMailPage extends Page {
         return composeMailPage;
     }
 
-    public ComposeMailPage fillRecipient(By recipientTextField, String recipient){
+    public ComposeMailPage fillRecipient(By recipientTextField, String recipient) {
         action.textSet(recipientTextField, recipient);
         return getCreateMailPage();
     }
 
-    public ComposeMailPage fillSubject(By subjectTextField, String subject){
+    public ComposeMailPage fillSubject(By subjectTextField, String subject) {
         action.textSet(subjectTextField, subject);
         return getCreateMailPage();
     }
 
-    public ComposeMailPage fillMailText(By mailTextField, String mailText){
+    public ComposeMailPage fillMailText(By mailTextField, String mailText) {
         action.textSet(mailTextField, mailText);
         return getCreateMailPage();
     }
@@ -37,4 +40,22 @@ public class ComposeMailPage extends Page {
         return getCreateMailPage();
     }
 
+    public ComposeMailPage saveAsDraft(By buttonSaveInDrafts, By pop_up_yes, WebDriver driver) {
+        try {
+            action.buttonClick(buttonSaveInDrafts);
+            action.buttonClick(pop_up_yes);
+        } catch (StaleElementReferenceException ex) {
+            Assert.fail("Problem with browser, becouse " + ex);
+        }
+        return getCreateMailPage();
+    }
+
+    public ComposeMailPage goToDrafts(By button_drafts_yandex) {
+        try {
+            action.buttonClick(button_drafts_yandex);
+        } catch (StaleElementReferenceException ex) {
+            Assert.fail("Problem with browser!!!!!!!!!!!!!!!! because " + ex);
+        }
+        return getCreateMailPage();
+    }
 }
