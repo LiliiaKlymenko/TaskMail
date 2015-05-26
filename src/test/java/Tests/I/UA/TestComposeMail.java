@@ -1,4 +1,4 @@
-package Tests;
+package Tests.I.UA;
 
 import Helpers.ComposeMailHelper;
 import PageFactory.MailBoxPage;

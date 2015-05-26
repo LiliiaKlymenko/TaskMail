@@ -1,4 +1,4 @@
-package Tests;
+package Tests.I.UA;
 
 /**
  * Created by Liliia_Klymenko on 25-May-15.
