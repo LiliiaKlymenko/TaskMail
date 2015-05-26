@@ -2,6 +2,7 @@ package Tests.I.UA;
 
 import Helpers.LoginHelper;
 import WebDriverFactory.WebDriverFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;
@@ -24,6 +25,13 @@ public class TestSignIn {
     String PASSWORD = resource.getString("PASSWORD");
     String DISPLAYEDUSERNAME = resource.getString("DISPLAYEDUSERNAME");
     String IUA = resource.getString("IUA");
+    String USER_NAME_TEXT_FIELD = resource.getString("USER_NAME_TEXT_FIELD");
+    String PASS_TEXT_FIELD = resource.getString("PASS_TEXT_FIELD");
+    String LOGIN_BUTTON = resource.getString("LOGIN_BUTTON");
+
+    private By usernameTextBox = new By.ByXPath(USER_NAME_TEXT_FIELD);
+    private By passwordTextBox = new By.ByXPath(PASS_TEXT_FIELD);
+    private By loginButton = new By.ByXPath(LOGIN_BUTTON);
 
 
 
@@ -38,7 +46,7 @@ public class TestSignIn {
     public void doLogin() {
         driver.get(IUA);
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
-        loginHelper.signIn(USERNAME, PASSWORD).assertSuccessSignIn(DISPLAYEDUSERNAME, driver);
+        loginHelper.signIn(usernameTextBox, passwordTextBox, USERNAME, PASSWORD, loginButton).assertSuccessSignIn(DISPLAYEDUSERNAME, driver); 
     }
 
 

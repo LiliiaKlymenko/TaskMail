@@ -3,6 +3,7 @@ package Helpers;
 import PageFactory.MailBoxPage;
 import PageFactory.Page;
 import PageFactory.SigninPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -16,13 +17,13 @@ public class LoginHelper {
     MailBoxPage mailBoxPage = new MailBoxPage();
 
 
-    public LoginHelper signIn(String userName, String password){
+    public LoginHelper signIn(By usernameTextBox,By passwordTextBox,  String userName, String password, By loginButton){
 
         Page.InitPage(signinPage);
         signinPage.
-                enterLogin(userName).
-                enterPassword(password).
-                clickLoginButton();
+                enterLogin(usernameTextBox, userName).
+                enterPassword(passwordTextBox, password).
+                clickLoginButton(loginButton);
         return this;
     }
 
