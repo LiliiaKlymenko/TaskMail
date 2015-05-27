@@ -78,7 +78,7 @@ public class TestComposeMail {
         Waiter.Waiter.waitForPresenceOfElementLocated(buttonSaveInDrafts, driver);
         composeMailHelper.
                 composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT, pop_up_yes, driver).
-                assertSuccessSaved(RECIPIENT_NAME, button_drafts_yandex, driver, lastMailRecipient).
+                assertSuccessSaved_encoding(RECIPIENT_NAME, button_drafts_yandex, driver, lastMailRecipient).
                 assertMailRequisites(MAIL_TEXT, button_drafts_yandex, driver, lastMailRecipient, subjectTextField, mailTextField);
     }
 

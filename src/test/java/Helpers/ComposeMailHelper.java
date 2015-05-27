@@ -46,6 +46,15 @@ public class ComposeMailHelper {
         return this;
     }
 
+
+    public ComposeMailHelper assertSuccessSaved_encoding(String recipient, By button_drafts_yandex, WebDriver driver, By lastMailRecipient){
+        composeMailPage.goToDrafts(button_drafts_yandex, driver);
+        drafts.AssertMailIsExcited_encoding(recipient, driver, lastMailRecipient);
+        return this;
+    }
+
+
+
     //_I.ua
     public ComposeMailHelper assertMailRequisites(String mailText, String draftsFolder, WebDriver driver, By lastMailRecipient, By subjectTextField, By mailTextField){
         driver.navigate().to(draftsFolder);

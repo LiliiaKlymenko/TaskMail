@@ -12,30 +12,25 @@ import org.testng.Assert;
 public class Drafts extends Page {
 
     private BrowserAction action = new BrowserAction();
-    String ENCODIN_GBROWSER_PROBLEM = "??????????????????";
-    String ENCODIN_GBROWSER_PROBLEM_Y = "???????? ??????????????";
     public static Drafts getDrafts() {
         Drafts drafts = new Drafts();
         InitPage(drafts);
         return drafts;
     }
 
-   /* public Drafts AssertMailIsExcited(String recipient, WebDriver driver, By lastMailRecipient) {
+    public Drafts AssertMailIsExcited_encoding(String recipient, WebDriver driver, By lastMailRecipient) {
        String actualLastMailRecipient = driver.findElement(lastMailRecipient).getText().trim();
-        Assert.assertTrue((actualLastMailRecipient.contains(recipient) |
-                (actualLastMailRecipient.contains(ENCODIN_GBROWSER_PROBLEM))
-                | (actualLastMailRecipient.contains(ENCODIN_GBROWSER_PROBLEM_Y))),
+        Assert.assertEquals(actualLastMailRecipient.length(), recipient.length(),
                 "Mail was not saved in drafts. Wrong recipient " +
-                        actualLastMailRecipient +
+                        actualLastMailRecipient + "/" + recipient +
                         "! Probably encoding is a reason");
 
         return getDrafts();
-    }*/
+    }
 
     public Drafts AssertMailIsExcited(String recipient, WebDriver driver, By lastMailRecipient) {
         Waiter.Waiter.waitForPresenceOfElementLocated(lastMailRecipient, driver);
         String actualLastMailRecipient = driver.findElement(lastMailRecipient).getText().trim();
-        //Encodings.convertMime2JavaEncoding(actualLastMailRecipient);
         Assert.assertEquals(actualLastMailRecipient, recipient,
                 "Mail was not saved in drafts. Wrong recipient " +
                         actualLastMailRecipient +
