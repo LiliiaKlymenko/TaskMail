@@ -3,6 +3,7 @@ package Tests.I.UA;
 import Helpers.ComposeMailHelper;
 import PageFactory.MailBoxPage;
 import PageFactory.SentMailPage;
+import Waiter.Waiter;
 import WebDriverFactory.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Liliia_Klymenko on 25-May-15.
@@ -69,15 +69,15 @@ public class TestComposeMail {
         sentMailPage = new SentMailPage();
     }
 
-    @Test(groups = {"MailBox"}, dependsOnGroups = {"SignIn"}, priority = 10)
+    @Test(groups = {"MailBox"}, dependsOnGroups = {"SignIn"})
     public void testStartCreatingNewMail() throws Exception {
         mailBoxPage.startCreatingNewMail(linkCreateNewMail);
 
     }
 
-    @Test(groups = {"ComposeMail", "CreateDraft"}, dependsOnGroups = {"MailBox"}, priority = 8)
+    @Test(groups = {"ComposeMail", "CreateDraft"}, dependsOnGroups = {"MailBox"})
     public void mailCreate() {
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        Waiter.waitForPresenceOfElementLocated(buttonSaveInDrafts, driver);
         composeMailHelper.
                 composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT).
                 assertSuccessSaved(RECIPIENT, DRAFTS, driver, lastMailRecipient).
@@ -86,7 +86,7 @@ public class TestComposeMail {
 
     @Test(groups = {"SendMail"}, dependsOnGroups = {"CreateDraft"}, priority = 5)
     public void mailSend() {
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        Waiter.waitForElementToBeClickable(buttonSettings, driver);
         composeMailHelper.sendMail(buttonSend, linkSentMail);
         sentMailPage.AssertMailIsExcited(RECIPIENT, driver, lastMailRecipient).exit(buttonSettings, buttonExit);
     }

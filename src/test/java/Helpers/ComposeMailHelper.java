@@ -6,8 +6,6 @@ import PageFactory.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by Liliia_Klymenko on 25-May-15.
  */
@@ -25,7 +23,7 @@ public class ComposeMailHelper {
 
     public ComposeMailHelper composeMail(By buttonSaveInDrafts, By mailTextField, By subjectTextField, By recipientTextField, String recipient, String subject, String mailText, By pop_up_yes, WebDriver driver){
         Page.InitPage(composeMailPage);
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        Waiter.Waiter.waitForPresenceOfElementLocated(recipientTextField, driver);
         composeMailPage.
                 fillRecipient(recipientTextField, recipient).
                 fillSubject(subjectTextField, subject).
@@ -43,7 +41,7 @@ public class ComposeMailHelper {
 
     //_yandex
     public ComposeMailHelper assertSuccessSaved(String recipient, By button_drafts_yandex, WebDriver driver, By lastMailRecipient){
-        composeMailPage.goToDrafts(button_drafts_yandex);
+        composeMailPage.goToDrafts(button_drafts_yandex, driver);
         drafts.AssertMailIsExcited(recipient, driver, lastMailRecipient);
         return this;
     }
@@ -59,23 +57,39 @@ public class ComposeMailHelper {
 
     //_yandex
     public ComposeMailHelper assertMailRequisites(String mailText,By button_drafts_yandex, WebDriver driver, By lastMailRecipient, By subjectTextField, By mailTextField){
-        composeMailPage.goToDrafts(button_drafts_yandex);
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        composeMailPage.goToDrafts(button_drafts_yandex, driver);
         drafts.
                 openDraftMail(lastMailRecipient).
                 AssertMailRequisites( mailText, driver, subjectTextField, mailTextField);
         return this;
     }
 
+    //gmail
+    public ComposeMailHelper composeMail(By buttonSaveInDrafts, By mailTextField, By subjectTextField, By recipientTextField, String recipient, String subject, String mailText, WebDriver driver){
+        Page.InitPage(composeMailPage);
+        Waiter.Waiter.waitForPresenceOfElementLocated(recipientTextField, driver);
+        composeMailPage.
+                fillRecipient(recipientTextField, recipient).
+                fillSubject(subjectTextField, subject).
+                fillMailText(mailTextField, mailText).
+                saveAsDraft(buttonSaveInDrafts);
+        return this;
+    }
+
     public ComposeMailHelper sendMail(By buttonSend, By linkSentMail){
         drafts.sendMail(buttonSend).openSentMail(linkSentMail);
-        return null;
+        return this;
     }
 
     public ComposeMailHelper sendMail(By buttonSend, By linkSentMail, By lastMailRecipient){
         drafts.
                 sendMail(buttonSend).
                 openSentMail(linkSentMail);
-        return null;
+        return this;
+    }
+
+    public ComposeMailHelper sendMail(String root, By linkSentMail){
+        drafts.sendMail(root).openSentMail(linkSentMail);
+        return this;
     }
 }

@@ -50,8 +50,9 @@ public class ComposeMailPage extends Page {
         return getCreateMailPage();
     }
 
-    public ComposeMailPage goToDrafts(By button_drafts_yandex) {
+    public ComposeMailPage goToDrafts(By button_drafts_yandex, WebDriver driver) {
         try {
+            Waiter.Waiter.waitForElementToBeClickable(button_drafts_yandex, driver);
             action.buttonClick(button_drafts_yandex);
         } catch (StaleElementReferenceException ex) {
             Assert.fail("Problem with browser!!!!!!!!!!!!!!!! because " + ex);

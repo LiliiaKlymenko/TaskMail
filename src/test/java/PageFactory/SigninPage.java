@@ -2,6 +2,7 @@ package PageFactory;
 
 import WebDriverFactory.BrowserAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Created by Lili on 24.05.2015.
@@ -24,12 +25,18 @@ public class SigninPage extends  Page {
     }
 
     public SigninPage enterPassword(By passwordTextBox, String pass){
+        Waiter.Waiter.waitForVisibilityOfElementLocated(passwordTextBox, WebDriverFactory.WebDriverFactory.getDriver(DesiredCapabilities.firefox()));
         action.textSet(passwordTextBox, pass);
         return getSigninPage();
     }
 
     public SigninPage clickLoginButton(By loginButton){
         action.buttonClick(loginButton);
+        return getSigninPage();
+    }
+
+    public SigninPage clickButtonNext(By buttonNext){
+        action.buttonClick(buttonNext);
         return getSigninPage();
     }
 

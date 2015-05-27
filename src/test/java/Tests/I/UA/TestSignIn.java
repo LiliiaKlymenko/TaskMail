@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Lili on 24.05.2015.
@@ -46,7 +45,7 @@ public class TestSignIn {
     @Test(groups = { "SignIn" }, priority = 10)
     public void doLogin() {
         driver.get(IUA);
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        Waiter.Waiter.waitForPresenceOfElementLocated(usernameTextBox, driver);
         loginHelper.signIn(usernameTextBox, passwordTextBox, USERNAME, PASSWORD, loginButton).assertSuccessSignIn(LINK_USER_NAME, DISPLAYEDUSERNAME, driver);
     }
 

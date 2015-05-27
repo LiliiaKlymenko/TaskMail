@@ -17,11 +17,20 @@ public class LoginHelper {
     MailBoxPage mailBoxPage = new MailBoxPage();
 
 
-    public LoginHelper signIn(By usernameTextBox,By passwordTextBox,  String userName, String password, By loginButton){
+    public LoginHelper signIn(By usernameTextBox, By passwordTextBox, String userName, String password, By loginButton) {
 
         Page.InitPage(signinPage);
         signinPage.
                 enterLogin(usernameTextBox, userName).
+                enterPassword(passwordTextBox, password).
+                clickLoginButton(loginButton);
+        return this;
+    }
+
+    public LoginHelper signIn(By usernameTextBox, By passwordTextBox, By buttonNext, String userName, String password, By loginButton) {
+        Page.InitPage(signinPage);
+        signinPage.enterLogin(usernameTextBox, userName).
+                clickButtonNext(buttonNext).
                 enterPassword(passwordTextBox, password).
                 clickLoginButton(loginButton);
         return this;

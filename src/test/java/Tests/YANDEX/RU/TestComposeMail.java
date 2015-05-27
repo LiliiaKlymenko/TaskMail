@@ -12,7 +12,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Liliia_Klymenko on 25-May-15.
@@ -24,6 +23,7 @@ public class TestComposeMail {
 
     ResourceBundle resource = ResourceBundle.getBundle("config");
     String RECIPIENT = resource.getString("RECIPIENT");
+    String RECIPIENT_NAME = resource.getString("RECIPIENT_NAME");
     String SUBJECT = resource.getString("SUBJECT");
     String MAIL_TEXT = resource.getString("MAIL_TEXT");
     String BUTTON_DRAFTS_YANDEX = resource.getString("BUTTON_DRAFTS_YANDEX");
@@ -75,10 +75,10 @@ public class TestComposeMail {
 
     @Test(groups = {"ComposeMailYandex", "CreateDraftYandex"}, dependsOnGroups = {"MailBoxYandex"}, priority = 8)
     public void mailCreate() {
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        Waiter.Waiter.waitForPresenceOfElementLocated(buttonSaveInDrafts, driver);
         composeMailHelper.
                 composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT, pop_up_yes, driver).
-                assertSuccessSaved(RECIPIENT, button_drafts_yandex, driver, lastMailRecipient).
+                assertSuccessSaved(RECIPIENT_NAME, button_drafts_yandex, driver, lastMailRecipient).
                 assertMailRequisites(MAIL_TEXT, button_drafts_yandex, driver, lastMailRecipient, subjectTextField, mailTextField);
     }
 

@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Lili on 24.05.2015.
@@ -44,7 +43,7 @@ public class TestSignIn {
     @Test(groups = { "SignInYandex" }, priority = 10)
     public void doLogin() {
         driver.get(YANDEXRU);
-        driver.manage().timeouts().implicitlyWait(150, TimeUnit.MILLISECONDS);
+        Waiter.Waiter.waitForPresenceOfElementLocated(usernameTextBox, driver);
         loginHelper.signIn(usernameTextBox, passwordTextBox, USERNAME, PASSWORD, loginButton).assertSuccessSignIn(LINK_USER_NAME, DISPLAYEDUSERNAME, driver);
     }
 
