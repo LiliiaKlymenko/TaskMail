@@ -28,36 +28,18 @@ public class WebDriverFactory {  // Factory settings
 
     // Factory
 
-    private static String key = null;
-    private static int count = 0;
-    private static WebDriver driver;
+    public static String key = null;
+    public static int count = 0;
+    public static WebDriver driver;
 
     public static WebDriver getDriver(String hub, Capabilities capabilities) {
         count++;
-        // 1. WebDriver instance is not created yet
         if (driver == null) {
             return newWebDriver(hub, capabilities);
         }
-        // 2. Different flavour of WebDriver is required
-        String newKey = capabilities.toString() + ":" + hub;
-        if (!newKey.equals(key)) {
-            dismissDriver();
-            key = newKey;
-            return newWebDriver(hub, capabilities);
-        }
-        // 3. Browser is dead
-        try {
-            driver.getCurrentUrl();
-        } catch (Throwable t) {
-            t.printStackTrace();
-            return newWebDriver(hub, capabilities);
-        }
-        // 4. It's time to restart
-        if (count >= restartFrequency) {
-            dismissDriver();
-            return newWebDriver(hub, capabilities);
-        }
-        // 5. Just use existing WebDriver instance
+
+       else
+
         return driver;
     }
 
@@ -72,12 +54,12 @@ public class WebDriverFactory {  // Factory settings
                 driver = null;
                 key = null;
             } catch (WebDriverException ex) {
-                // it can already be dead or unreachable
+
             }
         }
     }
 
-    // Factory internals
+
 
     private static WebDriver newWebDriver(String hub, Capabilities capabilities) {
         driver = (hub == null)
@@ -105,8 +87,10 @@ public class WebDriverFactory {  // Factory settings
             return new FirefoxDriver(capabilities);
         if (browserType.startsWith("internet explorer"))
             return new InternetExplorerDriver(capabilities);
-        if (browserType.equals("chrome"))
-            return new ChromeDriver(capabilities);
+        if (browserType.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "DriversExeLib/chromedriver.exe");
+            return new ChromeDriver();
+        }
         if (browserType.equals("opera"))
             return new OperaDriver(capabilities);
         throw new Error("Unrecognized browser type: " + browserType);
@@ -118,5 +102,15 @@ public class WebDriverFactory {  // Factory settings
                 dismissDriver();
             }
         });
+    }
+
+    public static WebDriver chooseChromeDriver() {
+        System.setProperty("webdriver.chrome.driver", "DriversExeLib/chromedriver.exe");
+        return new ChromeDriver();
+    }
+
+    public static WebDriver chooseOperaeDriver() {
+        System.setProperty("webdriver.opera.driver", "DriversExeLib/chromedriver.exe");
+        return new ChromeDriver();
     }
 }

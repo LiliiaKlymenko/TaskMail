@@ -12,14 +12,12 @@ public class BrowserAction {
 
     WebDriver driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
 
-       public  void textSet(By locator, String text){
+    public  void textSet(By locator, String text){
         driver.findElement(locator).sendKeys(text);
     }
-
     public  void buttonClick(By locator){
         driver.findElement(locator).click();
     }
-
     public  void sendKey(By locator){
         driver.findElement(locator).sendKeys(Keys.CONTROL, Keys.ENTER);
     }

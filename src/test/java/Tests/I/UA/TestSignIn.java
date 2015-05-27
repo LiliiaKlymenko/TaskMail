@@ -34,11 +34,9 @@ public class TestSignIn {
     private By loginButton = new By.ByXPath(LOGIN_BUTTON);
 
 
-
-
     @BeforeClass
     public void startWebDriver() {
-       driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+        driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
         loginHelper = new LoginHelper();
     }
 
