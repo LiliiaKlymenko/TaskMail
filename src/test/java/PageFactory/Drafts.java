@@ -19,6 +19,7 @@ public class Drafts extends Page {
     }
 
     public Drafts AssertMailIsExcited_encoding(String recipient, WebDriver driver, By lastMailRecipient) {
+        Waiter.Waiter.waitForPresenceOfElementLocated(lastMailRecipient, driver);
        String actualLastMailRecipient = driver.findElement(lastMailRecipient).getText().trim();
         Assert.assertEquals(actualLastMailRecipient.length(), recipient.length(),
                 "Mail was not saved in drafts. Wrong recipient " +
@@ -43,7 +44,7 @@ public class Drafts extends Page {
     public Drafts AssertMailRequisites(String mailText, WebDriver driver, By subjectTextField, By mailTextField) {
         String actualSubject = driver.findElement(subjectTextField).getText().trim();
         String actualMailText = driver.findElement(mailTextField).getText().trim();
-        Asserts.check((actualMailText.equals(mailText.trim()) | actualMailText.equals("")), "Mail was saved with wrong requisites :" + actualSubject + " " + actualMailText);
+        Asserts.check((actualMailText.equals(mailText.trim()) | actualMailText.equals("")), "Mail was saved with wrong requisites : " + actualSubject + " and " + actualMailText);
         return getDrafts();
 
     }

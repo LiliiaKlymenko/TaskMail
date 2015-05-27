@@ -32,8 +32,9 @@ public class SentMailPage extends Page {
         return getSentMailPage();
     }
 
-    public void exit(By buttonSettings, By buttonExit) {
+    public void exit(By buttonSettings, By buttonExit, WebDriver driver) {
         action.buttonClick(buttonSettings);
+        Waiter.Waiter.waitForElementToBeClickable(buttonExit, driver);
         action.buttonClick(buttonExit);
     }
 }

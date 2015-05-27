@@ -22,39 +22,33 @@ public class TestComposeMail {
     private static ComposeMailHelper composeMailHelper;
 
     ResourceBundle resource = ResourceBundle.getBundle("config");
-    String RECIPIENT = resource.getString("RECIPIENT");
-    String SUBJECT = resource.getString("SUBJECT");
-    String MAIL_TEXT = resource.getString("MAIL_TEXT");
-    String DRAFTS = resource.getString("DRAFTS");
-
-    String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
+    String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS");
     String LINK_CREATE_NEW_MAIL = resource.getString("LINK_CREATE_NEW_MAIL");
     String RECIPIENT_TEXT_FIELD = resource.getString("RECIPIENT_TEXT_FIELD");
-    String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS");
     String LAST_MAIL_RECIPIENT = resource.getString("LAST_MAIL_RECIPIENT");
     String SUBJECT_TEXT_FIELD = resource.getString("SUBJECT_TEXT_FIELD");
-    String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD");
-    String BUTTON_SEND = resource.getString("BUTTON_SEND");
-    String LINK_SENT_MAIL = resource.getString("LINK_SENT_MAIL");
-
     String BUTTON_SETTINGS = resource.getString("BUTTON_SETTINGS");
+    String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD");
+    String LINK_SENT_MAIL = resource.getString("LINK_SENT_MAIL");
     String BUTTON_EXIT = resource.getString("BUTTON_EXIT");
+    String BUTTON_SEND = resource.getString("BUTTON_SEND");
+    String MAIL_TEXT = resource.getString("MAIL_TEXT");
+    String RECIPIENT = resource.getString("RECIPIENT");
+    String SUBJECT = resource.getString("SUBJECT");
+    String DRAFTS = resource.getString("DRAFTS");
 
 
-    private By buttonSettings = new By.ByXPath(BUTTON_SETTINGS);
-    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
-
-    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
-    private By buttonSend = new By.ByXPath(BUTTON_SEND);
-    private By linkSentMail = new By.ByXPath(LINK_SENT_MAIL);
-
-    private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
-    private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
-    private By mailTextField = new By.ByXPath(MAIL_TEXT_FIELD);
     private By buttonSaveInDrafts = new By.ByXPath(BUTTON_SAVE_IN_DRAFTS);
-
-
+    private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
     private By linkCreateNewMail = new By.ByXPath(LINK_CREATE_NEW_MAIL);
+    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
+    private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
+    private By buttonSettings = new By.ByXPath(BUTTON_SETTINGS);
+    private By mailTextField = new By.ByXPath(MAIL_TEXT_FIELD);
+    private By linkSentMail = new By.ByXPath(LINK_SENT_MAIL);
+    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
+    private By buttonSend = new By.ByXPath(BUTTON_SEND);
+
 
     private static MailBoxPage mailBoxPage;
     private static SentMailPage sentMailPage;
@@ -80,14 +74,14 @@ public class TestComposeMail {
         composeMailHelper.
                 composeMail(buttonSaveInDrafts, mailTextField, subjectTextField, recipientTextField, RECIPIENT, SUBJECT, MAIL_TEXT).
                 assertSuccessSaved(RECIPIENT, DRAFTS, driver, lastMailRecipient).
-                assertMailRequisites(MAIL_TEXT, DRAFTS, driver,lastMailRecipient, subjectTextField, mailTextField);
+                assertMailRequisites(MAIL_TEXT, DRAFTS, driver, lastMailRecipient, subjectTextField, mailTextField);
     }
 
     @Test(groups = {"SendMail"}, dependsOnGroups = {"CreateDraft"}, priority = 5)
     public void mailSend() {
         Waiter.waitForElementToBeClickable(buttonSettings, driver);
         composeMailHelper.sendMail(buttonSend, linkSentMail);
-        sentMailPage.AssertMailIsExcited(RECIPIENT, driver, lastMailRecipient).exit(buttonSettings, buttonExit);
+        sentMailPage.AssertMailIsExcited(RECIPIENT, driver, lastMailRecipient).exit(buttonSettings, buttonExit, driver);
     }
 
 

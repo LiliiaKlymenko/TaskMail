@@ -19,40 +19,47 @@ public class TestComposeMail {
 
     WebDriver driver;
     private static ComposeMailHelper composeMailHelper;
-
     ResourceBundle resource = ResourceBundle.getBundle("config");
-    String RECIPIENT = resource.getString("RECIPIENT");
-    String RECIPIENT_NAME = resource.getString("RECIPIENT_NAME");
-    String SUBJECT = resource.getString("SUBJECT");
-    String MAIL_TEXT = resource.getString("MAIL_TEXT");
-    String BUTTON_DRAFTS_YANDEX = resource.getString("BUTTON_DRAFTS_YANDEX");
-    String LAST_MAIL_RECIPIENT = resource.getString("LAST_MAIL_RECIPIENT_YANDEX");
-    String BUTTON_SEND = resource.getString("BUTTON_SEND_YANDEX");
+
+
+
+
     String LINK_CREATE_NEW_MAIL = resource.getString("LINK_CREATE_NEW_MAIL_YANDEX");
     String RECIPIENT_TEXT_FIELD = resource.getString("RECIPIENT_TEXT_FIELD_YANDEX");
-    String SUBJECT_TEXT_FIELD = resource.getString("SUBJECT_TEXT_FIELD_YANDEX");
-    String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD_YANDEX");
     String BUTTON_SAVE_IN_DRAFTS = resource.getString("BUTTON_SAVE_IN_DRAFTS_YANDEX");
-    String POP_UP_YES = resource.getString("POP_UP_YES");
-    String LINK_SENT_MAIL = resource.getString("LINK_SENT_MAIL_YANDEX");
+    String LAST_MAIL_RECIPIENT = resource.getString("LAST_MAIL_RECIPIENT_YANDEX");
+    String SUBJECT_TEXT_FIELD = resource.getString("SUBJECT_TEXT_FIELD_YANDEX");
+    String BUTTON_DRAFTS_YANDEX = resource.getString("BUTTON_DRAFTS_YANDEX");
     String BUTTON_SETTINGS = resource.getString("BUTTON_SETTINGS_YANDEX");
+    String MAIL_TEXT_FIELD = resource.getString("MAIL_TEXT_FIELD_YANDEX");
+    String LINK_SENT_MAIL = resource.getString("LINK_SENT_MAIL_YANDEX");
     String BUTTON_EXIT = resource.getString("BUTTON_EXIT_YANDEX");
+    String BUTTON_SEND = resource.getString("BUTTON_SEND_YANDEX");
+    String RECIPIENT_NAME = resource.getString("RECIPIENT_NAME");
+    String POP_UP_YES = resource.getString("POP_UP_YES");
+    String RECIPIENT = resource.getString("RECIPIENT");
+    String MAIL_TEXT = resource.getString("MAIL_TEXT");
+    String SUBJECT = resource.getString("SUBJECT");
 
 
-    private By buttonSettings = new By.ByCssSelector(BUTTON_SETTINGS);
-    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
-    private By buttonSend = new By.ByXPath(BUTTON_SEND);
-    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
-    private By pop_up_yes = new By.ByXPath(POP_UP_YES);
-    private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
-    private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
-    private By mailTextField = new By.ByXPath(MAIL_TEXT_FIELD);
+
+
+
     private By buttonSaveInDrafts = new By.ByXPath(BUTTON_SAVE_IN_DRAFTS);
     private By button_drafts_yandex = new By.ByXPath(BUTTON_DRAFTS_YANDEX);
-    private By linkSentMail = new By.ByXPath(LINK_SENT_MAIL);
-
-
+    private By recipientTextField = new By.ByXPath(RECIPIENT_TEXT_FIELD);
     private By linkCreateNewMail = new By.ByXPath(LINK_CREATE_NEW_MAIL);
+    private By lastMailRecipient = new By.ByXPath(LAST_MAIL_RECIPIENT);
+    private By subjectTextField = new By.ByXPath(SUBJECT_TEXT_FIELD);
+    private By buttonSettings = new By.ByCssSelector(BUTTON_SETTINGS);
+    private By mailTextField = new By.ByXPath(MAIL_TEXT_FIELD);
+    private By linkSentMail = new By.ByXPath(LINK_SENT_MAIL);
+    private By buttonExit = new By.ByXPath(BUTTON_EXIT);
+    private By buttonSend = new By.ByXPath(BUTTON_SEND);
+    private By pop_up_yes = new By.ByXPath(POP_UP_YES);
+
+
+
 
     private static MailBoxPage mailBoxPage;
     private static SentMailPage sentMailPage;
@@ -83,8 +90,10 @@ public class TestComposeMail {
 
     @Test(groups = {"SendMailYandex"}, dependsOnGroups = {"ComposeMailYandex", "CreateDraftYandex"}, priority = 1)
     public void mailSend() {
-        composeMailHelper.sendMail(buttonSend, linkSentMail, lastMailRecipient);
-        sentMailPage.exit(buttonSettings, buttonExit);
+        composeMailHelper.
+                sendMail(buttonSend, linkSentMail, lastMailRecipient);
+        sentMailPage.
+                exit(buttonSettings, buttonExit, driver);
     }
 
 

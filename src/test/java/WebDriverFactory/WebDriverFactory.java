@@ -11,22 +11,18 @@ import org.openqa.selenium.opera.OperaDriver;
 /**
  * Created by Lili on 24.05.2015.
  */
-public class WebDriverFactory {  // Factory settings
+public class WebDriverFactory {
 
-    private static String defaultHub = null; // change to
-    // "http://myserver:4444/wd/hub" to
-    // use remote webdriver by default
+    private static String defaultHub = null;
     private static int restartFrequency = Integer.MAX_VALUE;
-
     public static void setDefaultHub(String newDefaultHub) {
         defaultHub = newDefaultHub;
     }
-
     public static void setRestartFrequency(int newRestartFrequency) {
         restartFrequency = newRestartFrequency;
     }
 
-    // Factory
+
 
     public static String key = null;
     public static int count = 0;
@@ -37,9 +33,7 @@ public class WebDriverFactory {  // Factory settings
         if (driver == null) {
             return newWebDriver(hub, capabilities);
         }
-
        else
-
         return driver;
     }
 
@@ -85,14 +79,19 @@ public class WebDriverFactory {  // Factory settings
         String browserType = capabilities.getBrowserName();
         if (browserType.equals("firefox"))
             return new FirefoxDriver(capabilities);
-        if (browserType.startsWith("internet explorer"))
-            return new InternetExplorerDriver(capabilities);
+        if (browserType.startsWith("internet explorer")) {
+            System.setProperty("webdriver.ie.driver", "DriversExeLib/IEDriverServer32.exe");
+            return new InternetExplorerDriver();
+        }
         if (browserType.equals("chrome")) {
             System.setProperty("webdriver.chrome.driver", "DriversExeLib/chromedriver.exe");
             return new ChromeDriver();
         }
-        if (browserType.equals("opera"))
-            return new OperaDriver(capabilities);
+        if (browserType.equals("opera")) {
+            System.setProperty("webdriver.opera.driver", "DriversExeLib/operadriver.exe");
+            return new OperaDriver();
+        }
+
         throw new Error("Unrecognized browser type: " + browserType);
     }
 
@@ -104,13 +103,4 @@ public class WebDriverFactory {  // Factory settings
         });
     }
 
-    public static WebDriver chooseChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "DriversExeLib/chromedriver.exe");
-        return new ChromeDriver();
-    }
-
-    public static WebDriver chooseOperaeDriver() {
-        System.setProperty("webdriver.opera.driver", "DriversExeLib/chromedriver.exe");
-        return new ChromeDriver();
-    }
 }

@@ -20,14 +20,14 @@ public class TestSignIn {
     private static LoginHelper loginHelper;
 
     ResourceBundle resource = ResourceBundle.getBundle("config");
+    String USER_NAME_TEXT_FIELD = resource.getString("USER_NAME_TEXT_FIELD");
+    String DISPLAYEDUSERNAME = resource.getString("DISPLAYEDUSERNAME");
+    String PASS_TEXT_FIELD = resource.getString("PASS_TEXT_FIELD");
+    String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
+    String LOGIN_BUTTON = resource.getString("LOGIN_BUTTON");
     String USERNAME = resource.getString("USERNAME");
     String PASSWORD = resource.getString("PASSWORD");
-    String DISPLAYEDUSERNAME = resource.getString("DISPLAYEDUSERNAME");
     String IUA = resource.getString("IUA");
-    String USER_NAME_TEXT_FIELD = resource.getString("USER_NAME_TEXT_FIELD");
-    String PASS_TEXT_FIELD = resource.getString("PASS_TEXT_FIELD");
-    String LOGIN_BUTTON = resource.getString("LOGIN_BUTTON");
-    String LINK_USER_NAME = resource.getString("LINK_USER_NAME");
 
     private By usernameTextBox = new By.ByXPath(USER_NAME_TEXT_FIELD);
     private By passwordTextBox = new By.ByXPath(PASS_TEXT_FIELD);
@@ -44,7 +44,9 @@ public class TestSignIn {
     public void doLogin() {
         driver.get(IUA);
         Waiter.Waiter.waitForPresenceOfElementLocated(usernameTextBox, driver);
-        loginHelper.signIn(usernameTextBox, passwordTextBox, USERNAME, PASSWORD, loginButton).assertSuccessSignIn(LINK_USER_NAME, DISPLAYEDUSERNAME, driver);
+        loginHelper.
+                signIn(usernameTextBox, passwordTextBox, USERNAME, PASSWORD, loginButton).
+                assertSuccessSignIn(LINK_USER_NAME, DISPLAYEDUSERNAME, driver);
     }
 
 
