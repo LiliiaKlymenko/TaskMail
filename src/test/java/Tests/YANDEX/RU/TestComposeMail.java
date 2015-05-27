@@ -1,8 +1,8 @@
 package Tests.YANDEX.RU;
 
 import Helpers.ComposeMailHelper;
-import PageFactory.MailBoxPage;
-import PageFactory.SentMailPage;
+import PageObjects.MailBoxPage;
+import PageObjects.SentMailPage;
 import WebDriverFactory.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

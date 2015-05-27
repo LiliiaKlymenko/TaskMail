@@ -1,8 +1,9 @@
-package PageFactory;
+package PageObjects;
 
 import WebDriverFactory.BrowserAction;
 import org.apache.http.util.Asserts;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -51,15 +52,14 @@ public class Drafts extends Page {
 
 
     public Drafts openDraftMail(By lastMailRecipient) {
+        try {
         action.buttonClick(lastMailRecipient);
+        } catch (StaleElementReferenceException ex) {
+            Assert.fail("Problem with browser because of StaleElementReferenceException. If such error occur, please, restart tests " + ex);
+        }
         return getDrafts();
     }
 
-    public Drafts sendMail(By buttonSend, By lastMailRecipient) {
-        action.buttonClick(lastMailRecipient);
-        action.buttonClick(buttonSend);
-        return getDrafts();
-    }
 
     public Drafts sendMail(By buttonSend) {
         action.buttonClick(buttonSend);

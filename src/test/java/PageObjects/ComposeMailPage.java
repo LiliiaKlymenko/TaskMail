@@ -1,4 +1,4 @@
-package PageFactory;
+package PageObjects;
 
 import WebDriverFactory.BrowserAction;
 import org.openqa.selenium.By;

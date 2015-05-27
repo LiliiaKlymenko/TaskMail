@@ -1,8 +1,8 @@
 package Helpers;
 
-import PageFactory.MailBoxPage;
-import PageFactory.Page;
-import PageFactory.SigninPage;
+import PageObjects.MailBoxPage;
+import PageObjects.Page;
+import PageObjects.SigninPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

@@ -1,8 +1,8 @@
 package Helpers;
 
-import PageFactory.ComposeMailPage;
-import PageFactory.Drafts;
-import PageFactory.Page;
+import PageObjects.ComposeMailPage;
+import PageObjects.Drafts;
+import PageObjects.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -32,19 +32,14 @@ public class ComposeMailHelper {
                         pop_up_yes, driver);
         return this;
     }
-    //_I.ua
+
+
     public ComposeMailHelper assertSuccessSaved(String recipient, String draftsFolder, WebDriver driver, By lastMailRecipient){
         driver.navigate().to(draftsFolder);
         drafts.AssertMailIsExcited(recipient, driver, lastMailRecipient);
         return this;
     }
 
-    //_yandex
-    public ComposeMailHelper assertSuccessSaved(String recipient, By button_drafts_yandex, WebDriver driver, By lastMailRecipient){
-        composeMailPage.goToDrafts(button_drafts_yandex, driver);
-        drafts.AssertMailIsExcited(recipient, driver, lastMailRecipient);
-        return this;
-    }
 
 
     public ComposeMailHelper assertSuccessSaved_encoding(String recipient, By button_drafts_yandex, WebDriver driver, By lastMailRecipient){
@@ -54,8 +49,6 @@ public class ComposeMailHelper {
     }
 
 
-
-    //_I.ua
     public ComposeMailHelper assertMailRequisites(String mailText, String draftsFolder, WebDriver driver, By lastMailRecipient, By subjectTextField, By mailTextField){
         driver.navigate().to(draftsFolder);
         drafts.
@@ -64,7 +57,6 @@ public class ComposeMailHelper {
         return this;
     }
 
-    //_yandex
     public ComposeMailHelper assertMailRequisites(String mailText,By button_drafts_yandex, WebDriver driver, By lastMailRecipient, By subjectTextField, By mailTextField){
         composeMailPage.goToDrafts(button_drafts_yandex, driver);
         drafts.
@@ -73,7 +65,6 @@ public class ComposeMailHelper {
         return this;
     }
 
-    //gmail
     public ComposeMailHelper composeMail(By buttonSaveInDrafts, By mailTextField, By subjectTextField, By recipientTextField, String recipient, String subject, String mailText, WebDriver driver){
         Page.InitPage(composeMailPage);
         Waiter.Waiter.waitForPresenceOfElementLocated(recipientTextField, driver);

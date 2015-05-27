@@ -1,8 +1,8 @@
 package Tests.I.UA;
 
 import Helpers.ComposeMailHelper;
-import PageFactory.MailBoxPage;
-import PageFactory.SentMailPage;
+import PageObjects.MailBoxPage;
+import PageObjects.SentMailPage;
 import Waiter.Waiter;
 import WebDriverFactory.WebDriverFactory;
 import org.openqa.selenium.By;
