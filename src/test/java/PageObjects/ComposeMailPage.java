@@ -55,7 +55,7 @@ public class ComposeMailPage extends Page {
             Waiter.Waiter.waitForElementToBeClickable(button_drafts_yandex, driver);
             action.buttonClick(button_drafts_yandex);
         } catch (StaleElementReferenceException ex) {
-            Assert.fail("Problem with browser because of StaleElementReferenceException. If such error occur, please, restart tests " + ex);
+            Assert.fail("Problem with browser because of StaleElementReferenceException. If such error occurred, please, restart tests " + ex);
         }
         return getCreateMailPage();
     }

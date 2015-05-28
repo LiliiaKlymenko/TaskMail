@@ -40,7 +40,7 @@ public class TestSignIn {
         loginHelper = new LoginHelper();
     }
 
-    @Test(groups = { "SignIn" }, priority = 10)
+    @Test(groups = { "SignIn" })
     public void doLogin() {
         driver.get(IUA);
         Waiter.Waiter.waitForPresenceOfElementLocated(usernameTextBox, driver);

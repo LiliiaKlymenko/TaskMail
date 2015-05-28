@@ -55,7 +55,7 @@ public class Drafts extends Page {
         try {
         action.buttonClick(lastMailRecipient);
         } catch (StaleElementReferenceException ex) {
-            Assert.fail("Problem with browser because of StaleElementReferenceException. If such error occur, please, restart tests " + ex);
+            Assert.fail("Problem with browser because of StaleElementReferenceException. If such error occurred, please, restart tests " + ex);
         }
         return getDrafts();
     }

@@ -10,7 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class BrowserAction {
 
-    WebDriver driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+    WebDriver driver =  WebDriverFactory.getDriver(DesiredCapabilities.firefox());
 
     public  void textSet(By locator, String text){
         driver.findElement(locator).sendKeys(text);

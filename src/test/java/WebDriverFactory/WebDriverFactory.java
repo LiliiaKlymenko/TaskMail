@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Created by Lili on 24.05.2015.
@@ -65,13 +66,13 @@ public class WebDriverFactory {
     }
 
     private static WebDriver createRemoteDriver(String hub,
-                                                Capabilities capabilities) {
-//        try {
-//            return new RemoteWebDriver(new URL(hub), capabilities);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//            throw new Error("Could not connect to WebDriver hub", e);
-//        }
+                                                Capabilities capabilities) throws Error {
+/*        try {
+            return new RemoteWebDriver(URL(hub), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new Error("Could not connect to WebDriver hub", e);
+        }*/
         return null;
     }
 
@@ -80,8 +81,12 @@ public class WebDriverFactory {
         if (browserType.equals("firefox"))
             return new FirefoxDriver(capabilities);
         if (browserType.startsWith("internet explorer")) {
+            DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+            caps.setCapability(
+                    InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+                    true);
             System.setProperty("webdriver.ie.driver", "DriversExeLib/IEDriverServer32.exe");
-            return new InternetExplorerDriver();
+            return new InternetExplorerDriver(caps);
         }
         if (browserType.equals("chrome")) {
             System.setProperty("webdriver.chrome.driver", "DriversExeLib/chromedriver.exe");
